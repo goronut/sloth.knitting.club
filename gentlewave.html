@@ -44,6 +44,7 @@
     .muted { color: var(--muted); font-size: .9rem; }
     .foot { margin-top: 12px; display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
     .foot .right { display: flex; gap: 8px; }
+    #statusMsg.warnMsg { color: var(--warn); font-weight: 700; }
   </style>
 </head>
 <body>
@@ -51,21 +52,21 @@
     <header>
       <h1>🌊 𝐺𝑒𝑛𝑡𝑙𝑒 𝑤𝑎𝑣𝑒 𝑤𝑟𝑎𝑝 𝑠𝑘𝑖𝑟𝑡</h1>
       <div class="subtitle">잔물결 랩스커트 시작코 계산기</div>
-      <p class="lead">반복구간 길이·허리/엉덩이 치수로 시작코를 계산합니다.<br>여유분은 <b>0 / 5 / 10cm</b> 세 가지를 동시에 보여줍니다.<br>(반복구간 코수는 고정값 <b>30코</b>, 시작코 = 반복코수×반복횟수 + 1)<br>수치는 숫자로만 기입해주세요</p>
+      <p class="lead">반복구간 길이·허리/엉덩이 치수로 시작코를 계산합니다. 여유분은 <b>0 / 5 / 10cm</b> 세 가지를 동시에 보여줍니다.<br>(반복구간 코수는 고정값 <b>30코</b>, 시작코 = 반복코수×반복횟수 + 1)</p>
     </header>
 
     <section class="card" aria-label="입력">
       <form id="calcForm" novalidate>
         <div>
-          <label for="repeatCm">반복구간 길이 (cm) </label>
+          <label for="repeatCm">반복구간 길이 (cm) <span class="sub">예: 12</span></label>
           <input id="repeatCm" name="repeatCm" type="number" inputmode="decimal" placeholder="예: 12" min="0.1" step="0.1" required />
         </div>
         <div>
-          <label for="waist">허리둘레 (cm) </label>
+          <label for="waist">허리둘레 (cm) <span class="sub">예: 70</span></label>
           <input id="waist" name="waist" type="number" inputmode="decimal" placeholder="예: 70" min="1" step="0.1" required />
         </div>
         <div>
-          <label for="hip">엉덩이둘레 (cm) </label>
+          <label for="hip">엉덩이둘레 (cm) <span class="sub">예: 95</span></label>
           <input id="hip" name="hip" type="number" inputmode="decimal" placeholder="예: 95" min="1" step="0.1" required />
         </div>
 
@@ -88,7 +89,7 @@
       </div>
     </section>
 
-    <p class="muted" style="margin-top:12px">*엉덩이 적합성 기준 = <b>허리둘레+여유분 ≤ 엉덩이둘레</b></p>
+    <p class="muted" style="margin-top:12px">* 엉덩이 적합성 기준: 실제 길이 ≤ 엉덩이둘레.</p>
   </div>
 
   <script>
@@ -172,32 +173,40 @@
       if (!repeatCm || repeatCm<=0 || !waist || !hip){
         tableWrap.innerHTML = '<span class="muted">필수 값을 모두 입력해주세요.</span>';
         statusMsg.textContent = '입력 대기';
+        statusMsg.classList.remove('warnMsg');
         return null;
       }
 
       const rows = EASES.map(ease => computeRow(repeatCm, waist, hip, ease));
       renderTable(rows, waist, hip, repeatCm);
       const anyWarn = rows.some(r => !r.hipOk);
-      statusMsg.textContent = anyWarn ? '⚠️ 일부 케이스가 엉덩이둘레를 초과합니다.' : '모든 케이스가 엉덩이둘레 이내입니다.';
+      if(anyWarn){
+        statusMsg.textContent = '⚠️ 일부 케이스가 엉덩이둘레를 초과합니다.';
+        statusMsg.classList.add('warnMsg');
+      } else {
+        statusMsg.textContent = '모든 케이스가 엉덩이둘레 이내입니다.';
+        statusMsg.classList.remove('warnMsg');
+      }
       return rows;
     }
 
     function copyResult(){
       const txt = tableWrap.innerText.replace(/\s+/g, '\n');
-      navigator.clipboard?.writeText(txt).then(()=>{ statusMsg.textContent='표 내용을 복사했어요.'; }).catch(()=>{ statusMsg.textContent='복사 실패. 수동으로 복사해주세요.'; });
+      navigator.clipboard?.writeText(txt).then(()=>{ statusMsg.textContent='표 내용을 복사했어요.'; statusMsg.classList.remove('warnMsg'); }).catch(()=>{ statusMsg.textContent='복사 실패. 수동으로 복사해주세요.'; });
     }
 
     function shareLink(){
       const params = new URLSearchParams();
       for (const [k, el] of Object.entries(inputs)) params.set(k, el.value);
       const url = `${location.origin}${location.pathname}?${params.toString()}`;
-      navigator.clipboard?.writeText(url).then(()=>{ statusMsg.textContent='현재 입력 상태 링크를 복사했어요.'; }).catch(()=>{ statusMsg.textContent = url; });
+      navigator.clipboard?.writeText(url).then(()=>{ statusMsg.textContent='현재 입력 상태 링크를 복사했어요.'; statusMsg.classList.remove('warnMsg'); }).catch(()=>{ statusMsg.textContent = url; });
     }
 
     function resetAll(){
       form.reset();
       tableWrap.innerHTML = '<span class="muted">필수 값을 모두 입력해주세요.</span>';
       statusMsg.textContent = '초기화 완료';
+      statusMsg.classList.remove('warnMsg');
       saveState();
       history.replaceState(null, '', location.pathname);
     }
