@@ -35,6 +35,7 @@
     .result { padding: 16px 18px; border-top: 1px dashed var(--line); }
     .result h2 { font-size: 1.05rem; margin: 0 0 8px; }
     .guideline { margin: 16px 0; text-align: left; color: var(--cont); font-size: .9rem; }
+    .note { color: var(--cont); font-size: .85rem; }
     table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
     th, td { padding: 10px 8px; border-bottom: 1px solid var(--line); text-align: center; }
     th:first-child, td:first-child { text-align: left; }
@@ -46,6 +47,8 @@
     .foot { margin-top: 12px; display: flex; justify-content: center; align-items: center; gap: 8px; flex-wrap: wrap; }
     #statusMsg.warnMsg { color: var(--warn); font-weight: 700; }
     .contact { margin-top: 16px; font-size: .9rem; color: var(--muted); text-align: center; line-height: 1.5; }
+    .contact .spaced { display: block; margin-top: 8px; }
+    .copyright { font-size: .7rem; color: var(--muted); opacity: 0.8; }
   </style>
 </head>
 <body>
@@ -56,8 +59,8 @@
       <div class="lead">
         <span>가로 반복 구간 게이지, 허리와 엉덩이 둘레 수치로 시작코수를 계산합니다</span>
         <span>여유분 <b>0 / 5 / 10cm</b>의 세 가지 옵션을 동시에 보여줍니다</span>
-        <span>(가로 반복 구간 코수는 <b>30코</b> / 시작코수는 "30코 × 반복횟수 +1"로 계산됩니다)</span>
-        <span style="margin-top:6px;"><B>모든 수치는 숫자로만 입력해주세요</B></span>
+        <span class="note">(가로 반복 구간 코수는 <b>30코</b> / 시작코수는 "30코 × 반복횟수 +1"로 계산됩니다)</span>
+        <span style="margin-top:6px;"><b>모든 수치는 숫자로만 입력해주세요</b></span>
       </div>
     </header>
 
@@ -93,10 +96,10 @@
     </section>
 
     <div class="contact">
-      <b>- 도안에 대한 문의 및 피드백 -</b><br>
-       <span style="margin-top:6px;">카카오톡 채널 : 나무늘보 뜨개 클럽<br>
+      <b>- 도안에 대한 문의 및 피드백 -</b>
+      <span class="spaced">카카오톡 채널 : 나무늘보 뜨개 클럽<br>
       이메일 : goronut@naver.com</span><br><br>
-      <font size="1">Copyright © 2025. SLOTH KNITTING CLUB All rights reserved</font></span>
+      <span class="copyright">Copyright © 2025. SLOTH KNITTING CLUB All rights reserved</span>
     </div>
   </div>
 
