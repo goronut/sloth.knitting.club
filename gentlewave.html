@@ -1,128 +1,212 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>뜨개 시작코 계산기</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>🌊 Gentle wave Wrap Skirt — 잔물결 랩스커트 시작코 계산기</title>
+  <meta name="color-scheme" content="light dark" />
   <style>
-    /* 모든 요소 box-sizing 적용 */
-    *, *::before, *::after {
-      box-sizing: border-box;
+    *, *::before, *::after { box-sizing: border-box; }
+    :root {
+      --bg: #fafafa; --card: #ffffff; --text: #1f2937; --muted: #6b7280; --line: #e5e7eb;
+      --brand: #111827; --brand-2: #374151; --ok: #059669; --warn: #dc2626; --focus: #2563eb;
+      --shadow: 0 8px 24px rgba(0,0,0,.08); --radius: 12px;
     }
-
-    body {
-      font-family: Arial, sans-serif;
-      max-width: 480px;
-      margin: 2rem auto;
-      padding: 1rem;
-      background: #fafafa;
+    @media (prefers-color-scheme: dark){
+      :root{ --bg:#0b0f14; --card:#0f1520; --text:#e5e7eb; --muted:#9ca3af; --line:#1f2937; --brand:#e5e7eb; --brand-2:#cbd5e1; --shadow:0 8px 24px rgba(0,0,0,.35); }
     }
-
-    h1 {
-      text-align: center;
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-    }
-
-    label {
-      display: block;
-      margin: 0.5rem 0 0.2rem;
-      font-size: 1rem;
-    }
-
-    input {
-      width: 100%;
-      padding: 0.6rem;
-      margin-bottom: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      font-size: 1rem;
-    }
-
-    button {
-      width: 100%;
-      padding: 0.8rem;
-      border: none;
-      border-radius: 6px;
-      background: #333;
-      color: #fff;
-      font-size: 1rem;
-      cursor: pointer;
-      margin-top: 0.5rem;
-    }
-
-    button:hover {
-      background: #555;
-    }
-
-    .result {
-      margin-top: 1.5rem;
-      padding: 1rem;
-      background: #fff;
-      border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      text-align: center;
-      font-size: 1.1rem;
-      word-break: break-word; /* 긴 텍스트 줄바꿈 */
-    }
-
-    .warning {
-      color: red;
-      font-weight: bold;
-      margin-top: 1rem;
-    }
+    body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Noto Sans KR, Arial, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol; background: var(--bg); color: var(--text); display: grid; place-items: start center; padding: 24px 16px; }
+    .app { width: 100%; max-width: 760px; }
+    header { text-align: center; margin-bottom: 16px; }
+    h1 { font-size: clamp(1.2rem, 2vw + 1rem, 1.7rem); margin: 0 0 4px; font-family: "Times New Roman", serif; font-style: italic; font-weight: 600; }
+    .subtitle { font-size: .95rem; color: var(--muted); margin: 0 0 6px; }
+    p.lead { margin: 0; color: var(--muted); font-size: .95rem; }
+    .card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }
+    form { padding: 18px; display: grid; gap: 14px; }
+    label { display: flex; align-items: baseline; gap: 8px; font-weight: 600; font-size: .95rem; }
+    label .sub { font-weight: 400; color: var(--muted); font-size: .9rem; }
+    input[type="number"] { width: 100%; padding: 12px; border: 1px solid var(--line); border-radius: 10px; background: transparent; color: var(--text); font-size: 1rem; }
+    input::placeholder { color: #9aa1aa; opacity: .8; }
+    input:focus { outline: 2px solid var(--focus); outline-offset: 1px; }
+    .actions { display: grid; gap: 10px; grid-template-columns: 1fr; padding: 0 18px 18px; }
+    @media (min-width:520px){ .actions { grid-template-columns: 1fr 1fr; } }
+    button { appearance: none; border: 1px solid var(--brand-2); background: var(--brand); color: #fff; padding: 12px 14px; font-size: 1rem; border-radius: 10px; cursor: pointer; }
+    button.secondary { background: transparent; color: var(--brand); }
+    .result { padding: 16px 18px; border-top: 1px dashed var(--line); }
+    .result h2 { font-size: 1.05rem; margin: 0 0 8px; }
+    table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+    th, td { padding: 10px 8px; border-bottom: 1px solid var(--line); text-align: right; }
+    th:first-child, td:first-child { text-align: left; }
+    thead th { text-align: center; font-weight: 700; }
+    .badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 8px; border-radius: 999px; font-size: .8rem; border: 1px solid var(--line); background: transparent; }
+    .ok { color: var(--ok); border-color: color-mix(in oklab, var(--ok) 50%, var(--line)); }
+    .warn { color: var(--warn); border-color: color-mix(in oklab, var(--warn) 50%, var(--line)); }
+    .muted { color: var(--muted); font-size: .9rem; }
+    .foot { margin-top: 12px; display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .foot .right { display: flex; gap: 8px; }
   </style>
 </head>
 <body>
-  <h1>뜨개 시작코 계산기</h1>
-  
-  <label>30코의 길이(cm)</label>
-  <input type="number" id="repeatCm" placeholder="예: 12">
-  
-  <label>허리둘레(cm)</label>
-  <input type="number" id="waist" placeholder="예: 70">
-  
-  <label>엉덩이둘레(cm)</label>
-  <input type="number" id="hip" placeholder="예: 95">
-  
-  <label>여유분(cm)</label>
-  <input type="number" id="easeCm" placeholder="예: 4">
-  
-  <button onclick="calculate()">계산하기</button>
-  
-  <div class="result" id="result">결과가 여기에 표시됩니다</div>
-  
+  <div class="app">
+    <header>
+      <h1>🌊 𝐺𝑒𝑛𝑡𝑙𝑒 𝑤𝑎𝑣𝑒 𝑤𝑟𝑎𝑝 𝑠𝑘𝑖𝑟𝑡</h1>
+      <div class="subtitle">잔물결 랩스커트 시작코 계산기</div>
+      <p class="lead">반복구간 길이·허리/엉덩이 치수로 시작코를 계산합니다. 여유분은 <b>0 / 5 / 10cm</b> 세 가지를 동시에 보여줍니다.<br>(반복구간 코수는 고정값 <b>30코</b>, 시작코 = 반복코수×반복횟수 + 1)</p>
+    </header>
+
+    <section class="card" aria-label="입력">
+      <form id="calcForm" novalidate>
+        <div>
+          <label for="repeatCm">반복구간 길이 (cm) <span class="sub">예: 12</span></label>
+          <input id="repeatCm" name="repeatCm" type="number" inputmode="decimal" placeholder="예: 12" min="0.1" step="0.1" required />
+        </div>
+        <div>
+          <label for="waist">허리둘레 (cm) <span class="sub">예: 70</span></label>
+          <input id="waist" name="waist" type="number" inputmode="decimal" placeholder="예: 70" min="1" step="0.1" required />
+        </div>
+        <div>
+          <label for="hip">엉덩이둘레 (cm) <span class="sub">예: 95</span></label>
+          <input id="hip" name="hip" type="number" inputmode="decimal" placeholder="예: 95" min="1" step="0.1" required />
+        </div>
+
+        <div class="actions">
+          <button type="submit" id="calcBtn">계산하기</button>
+          <button type="button" class="secondary" id="resetBtn" title="입력값 초기화">초기화</button>
+        </div>
+      </form>
+
+      <div class="result" aria-live="polite" id="result" role="status">
+        <h2>결과 (여유분 0 / 5 / 10 cm)</h2>
+        <div id="tableWrap" class="muted">계산하기 버튼을 눌러 결과를 확인하세요.</div>
+        <div class="foot">
+          <span class="muted" id="statusMsg">—</span>
+          <div class="right">
+            <button type="button" class="secondary" id="copyBtn" title="표 텍스트 복사">복사</button>
+            <button type="button" class="secondary" id="shareBtn" title="현재 입력 상태를 링크로 공유">공유 링크</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <p class="muted" style="margin-top:12px">* 엉덩이 적합성 기준: 실제 길이 ≤ 엉덩이둘레.</p>
+  </div>
+
   <script>
-    function calculate() {
-      const repeatStitches = 30; // 반복구간 고정
-      const repeatCm = Number(document.getElementById("repeatCm").value);
-      const waist = Number(document.getElementById("waist").value);
-      const hip = Number(document.getElementById("hip").value);
-      const easeCm = Number(document.getElementById("easeCm").value);
+    const REPEAT_ST = 30; // 고정 반복구간 코수
+    const EASES = [0, 5, 10];
 
-      if (!repeatCm || !waist || !hip) {
-        document.getElementById("result").innerText = "모든 값을 입력해주세요!";
-        return;
-      }
+    const qs = (s, el=document) => el.querySelector(s);
+    const fmt = (n, d=1) => Number(n).toFixed(d);
 
-      const targetCm = waist + (easeCm || 0);
-      const repeatCount = Math.round(targetCm / repeatCm);
-      const totalStitches = repeatCount * repeatStitches + 1; // +1코
-      const actualSize = repeatCount * repeatCm;
+    const form = qs('#calcForm');
+    const inputs = { repeatCm: qs('#repeatCm'), waist: qs('#waist'), hip: qs('#hip') };
+    const tableWrap = qs('#tableWrap');
+    const statusMsg = qs('#statusMsg');
+    const copyBtn = qs('#copyBtn');
+    const shareBtn = qs('#shareBtn');
+    const resetBtn = qs('#resetBtn');
 
-      let output = `
-        허리 + 여유분: <b>${targetCm}</b> cm<br>
-        반복 횟수: <b>${repeatCount}</b> 회<br>
-        실제 크기: <b>${actualSize.toFixed(1)}</b> cm<br>
-        👉 시작코: <b>${totalStitches}</b> 코
-      `;
-
-      if (targetCm > hip) {
-        output += `<div class="warning">⚠️ 허리+여유분이 엉덩이둘레보다 큽니다. 추천하지 않음!</div>`;
-      }
-
-      document.getElementById("result").innerHTML = output;
+    const KEY = 'ssk:calc:v4';
+    function saveState(){
+      const data = Object.fromEntries(Object.entries(inputs).map(([k, el]) => [k, el.value]));
+      localStorage.setItem(KEY, JSON.stringify(data));
     }
+    function loadState(){
+      try {
+        const url = new URL(location.href);
+        const hasParams = url.searchParams.size > 0;
+        const saved = localStorage.getItem(KEY);
+        const fromStorage = saved ? JSON.parse(saved) : null;
+        const fromQuery = hasParams ? Object.fromEntries([...url.searchParams.entries()]) : null;
+        const source = fromQuery || fromStorage;
+        if (source) {
+          for (const k in inputs) if (source[k] != null) inputs[k].value = source[k];
+        }
+      } catch(_){} }
+
+    function computeRow(repeatCm, waist, hip, ease){
+      const target = waist + ease;
+      const rawRepeats = target / repeatCm;
+      let repeats = Math.max(1, Math.round(rawRepeats));
+      const totalSt = repeats * REPEAT_ST + 1;
+      const actual = repeats * repeatCm;
+      const actualEase = actual - waist;
+      const hipOk = actual <= hip;
+      return { ease, target, repeats, totalSt, actual, actualEase, hipOk };
+    }
+
+    function renderTable(rows, waist, hip, repeatCm){
+      const head = `
+        <thead>
+          <tr>
+            <th>여유분</th>
+            <th>목표(cm)</th>
+            <th>반복수</th>
+            <th>실제(cm)</th>
+            <th>실제 여유(cm)</th>
+            <th>시작코</th>
+            <th>엉덩이 적합</th>
+          </tr>
+        </thead>`;
+      const body = rows.map(r => `
+        <tr>
+          <td>${fmt(r.ease,0)} cm</td>
+          <td>${fmt(r.target)}</td>
+          <td>${r.repeats}</td>
+          <td>${fmt(r.actual)}</td>
+          <td>${fmt(r.actualEase)}</td>
+          <td><b>${r.totalSt}</b></td>
+          <td>${r.hipOk ? '<span class="badge ok">적합</span>' : '<span class="badge warn">주의</span>'}</td>
+        </tr>`).join('');
+
+      tableWrap.innerHTML = `
+        <div class="muted" style="margin-bottom:8px">반복구간 <b>${fmt(repeatCm)}</b> cm · 허리 <b>${fmt(waist)}</b> cm · 엉덩이 <b>${fmt(hip)}</b> cm</div>
+        <table>${head}<tbody>${body}</tbody></table>`;
+    }
+
+    function compute(){
+      const repeatCm = parseFloat(inputs.repeatCm.value);
+      const waist = parseFloat(inputs.waist.value);
+      const hip = parseFloat(inputs.hip.value);
+
+      if (!repeatCm || repeatCm<=0 || !waist || !hip){
+        tableWrap.innerHTML = '<span class="muted">필수 값을 모두 입력해주세요.</span>';
+        statusMsg.textContent = '입력 대기';
+        return null;
+      }
+
+      const rows = EASES.map(ease => computeRow(repeatCm, waist, hip, ease));
+      renderTable(rows, waist, hip, repeatCm);
+      const anyWarn = rows.some(r => !r.hipOk);
+      statusMsg.textContent = anyWarn ? '⚠️ 일부 케이스가 엉덩이둘레를 초과합니다.' : '모든 케이스가 엉덩이둘레 이내입니다.';
+      return rows;
+    }
+
+    function copyResult(){
+      const txt = tableWrap.innerText.replace(/\s+/g, '\n');
+      navigator.clipboard?.writeText(txt).then(()=>{ statusMsg.textContent='표 내용을 복사했어요.'; }).catch(()=>{ statusMsg.textContent='복사 실패. 수동으로 복사해주세요.'; });
+    }
+
+    function shareLink(){
+      const params = new URLSearchParams();
+      for (const [k, el] of Object.entries(inputs)) params.set(k, el.value);
+      const url = `${location.origin}${location.pathname}?${params.toString()}`;
+      navigator.clipboard?.writeText(url).then(()=>{ statusMsg.textContent='현재 입력 상태 링크를 복사했어요.'; }).catch(()=>{ statusMsg.textContent = url; });
+    }
+
+    function resetAll(){
+      form.reset();
+      tableWrap.innerHTML = '<span class="muted">필수 값을 모두 입력해주세요.</span>';
+      statusMsg.textContent = '초기화 완료';
+      saveState();
+      history.replaceState(null, '', location.pathname);
+    }
+
+    loadState();
+    form.addEventListener('submit', (e) => { e.preventDefault(); const out = compute(); if(out) saveState(); });
+    copyBtn.addEventListener('click', copyResult);
+    shareBtn.addEventListener('click', shareLink);
+    resetBtn.addEventListener('click', resetAll);
   </script>
 </body>
 </html>
