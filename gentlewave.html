@@ -51,21 +51,21 @@
     <header>
       <h1>🌊 𝐺𝑒𝑛𝑡𝑙𝑒 𝑤𝑎𝑣𝑒 𝑤𝑟𝑎𝑝 𝑠𝑘𝑖𝑟𝑡</h1>
       <div class="subtitle">잔물결 랩스커트 시작코 계산기</div>
-      <p class="lead">반복구간 길이·허리/엉덩이 치수로 시작코를 계산합니다. 여유분은 <b>0 / 5 / 10cm</b> 세 가지를 동시에 보여줍니다.<br>(반복구간 코수는 고정값 <b>30코</b>, 시작코 = 반복코수×반복횟수 + 1)</p>
+      <p class="lead">반복구간 길이·허리/엉덩이 치수로 시작코를 계산합니다.<br>여유분은 <b>0 / 5 / 10cm</b> 세 가지를 동시에 보여줍니다.<br>(반복구간 코수는 고정값 <b>30코</b>, 시작코 = 반복코수×반복횟수 + 1)<br>수치는 숫자로만 기입해주세요</p>
     </header>
 
     <section class="card" aria-label="입력">
       <form id="calcForm" novalidate>
         <div>
-          <label for="repeatCm">반복구간 길이 (cm) <span class="sub">예: 12</span></label>
+          <label for="repeatCm">반복구간 길이 (cm) </label>
           <input id="repeatCm" name="repeatCm" type="number" inputmode="decimal" placeholder="예: 12" min="0.1" step="0.1" required />
         </div>
         <div>
-          <label for="waist">허리둘레 (cm) <span class="sub">예: 70</span></label>
+          <label for="waist">허리둘레 (cm) </label>
           <input id="waist" name="waist" type="number" inputmode="decimal" placeholder="예: 70" min="1" step="0.1" required />
         </div>
         <div>
-          <label for="hip">엉덩이둘레 (cm) <span class="sub">예: 95</span></label>
+          <label for="hip">엉덩이둘레 (cm) </label>
           <input id="hip" name="hip" type="number" inputmode="decimal" placeholder="예: 95" min="1" step="0.1" required />
         </div>
 
@@ -88,7 +88,7 @@
       </div>
     </section>
 
-    <p class="muted" style="margin-top:12px">* 엉덩이 적합성 기준: 실제 길이 ≤ 엉덩이둘레.</p>
+    <p class="muted" style="margin-top:12px">*엉덩이 적합성 기준 = <b>허리둘레+여유분 ≤ 엉덩이둘레</b></p>
   </div>
 
   <script>
