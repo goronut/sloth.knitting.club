@@ -18,9 +18,9 @@
     body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Noto Sans KR, Arial, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol; background: var(--bg); color: var(--text); display: grid; place-items: start center; padding: 24px 16px; }
     .app { width: 100%; max-width: 760px; }
     header { text-align: center; margin-bottom: 16px; }
-    h1 { font-size: clamp(1.2rem, 2vw + 1rem, 1.7rem); margin: 0 0 4px; font-family: "Times New Roman", serif; font-style: italic; font-weight: 600; }
-    .subtitle { font-size: .95rem; color: var(--muted); margin: 0 0 6px; }
-    p.lead { margin: 0; color: var(--muted); font-size: .95rem; }
+    h1 { font-size: clamp(1.2rem, 2vw + 1rem, 1.7rem); margin: 0 0 4px; font-family: "Times New Roman", serif; font-weight: 600; }
+    .subtitle { font-size: .95rem; color: var(--muted); margin: 0 0 16px; }
+    .lead { margin: 0; color: var(--muted); font-size: .95rem; line-height: 1.5; display: flex; flex-direction: column; gap: 6px; align-items: center; }
     .card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }
     form { padding: 18px; display: grid; gap: 20px; }
     label { display: flex; align-items: center; justify-content: space-between; font-weight: 600; font-size: .95rem; margin-bottom: 6px; }
@@ -51,22 +51,27 @@
   <div class="app">
     <header>
       <h1>🌊 𝐺𝑒𝑛𝑡𝑙𝑒 𝑤𝑎𝑣𝑒 𝑤𝑟𝑎𝑝 𝑠𝑘𝑖𝑟𝑡</h1>
-      <div class="subtitle">잔물결 랩스커트 시작코 계산기</div>
-      <p class="lead">반복구간 길이·허리/엉덩이 치수로 시작코를 계산합니다. 여유분은 <b>0 / 5 / 10cm</b> 세 가지를 동시에 보여줍니다.<br>(반복구간 코수는 고정값 <b>30코</b>, 시작코 = 반복코수×반복횟수 + 1)</p>
+      <div class="subtitle" style="margin-bottom:24px;">- 잔물결 랩스커트 시작코 계산기 - </div>
+      <div class="lead">
+        <span>반복구간 길이·허리/엉덩이 치수로 시작코를 계산합니다.</span>
+        <span>여유분은 <b>0 / 5 / 10cm</b> 세 가지를 동시에 보여줍니다.</span>
+        <span>(반복구간 코수는 고정값 <b>30코</b>, 시작코 = 반복코수×반복횟수 + 1)</span>
+        <span style="margin-top:6px;">모든 수치는 숫자로만 입력해주세요.</span>
+      </div>
     </header>
 
     <section class="card" aria-label="입력">
       <form id="calcForm" novalidate>
         <div>
-          <label for="repeatCm">반복구간 길이 (cm) <span class="sub">예: 12</span></label>
+          <label for="repeatCm">반복구간 길이 (cm)</label>
           <input id="repeatCm" name="repeatCm" type="number" inputmode="decimal" placeholder="예: 12" min="0.1" step="0.1" required />
         </div>
         <div>
-          <label for="waist">허리둘레 (cm) <span class="sub">예: 70</span></label>
+          <label for="waist">허리둘레 (cm)</label>
           <input id="waist" name="waist" type="number" inputmode="decimal" placeholder="예: 70" min="1" step="0.1" required />
         </div>
         <div>
-          <label for="hip">엉덩이둘레 (cm) <span class="sub">예: 95</span></label>
+          <label for="hip">엉덩이둘레 (cm)</label>
           <input id="hip" name="hip" type="number" inputmode="decimal" placeholder="예: 95" min="1" step="0.1" required />
         </div>
 
