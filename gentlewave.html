@@ -42,9 +42,9 @@
     .ok { color: var(--ok); border-color: color-mix(in oklab, var(--ok) 50%, var(--line)); }
     .warn { color: var(--warn); border-color: color-mix(in oklab, var(--warn) 50%, var(--line)); }
     .muted { color: var(--muted); font-size: .9rem; }
-    .foot { margin-top: 12px; display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
-    .foot .right { display: flex; gap: 8px; }
+    .foot { margin-top: 12px; display: flex; justify-content: center; align-items: center; gap: 8px; flex-wrap: wrap; }
     #statusMsg.warnMsg { color: var(--warn); font-weight: 700; }
+    .contact { margin-top: 16px; font-size: .9rem; color: var(--muted); text-align: center; line-height: 1.5; }
   </style>
 </head>
 <body>
@@ -86,15 +86,17 @@
         <div id="tableWrap" class="muted">계산하기 버튼을 눌러 결과를 확인하세요.</div>
         <div class="foot">
           <span class="muted" id="statusMsg">—</span>
-          <div class="right">
-            <button type="button" class="secondary" id="copyBtn" title="표 텍스트 복사">복사</button>
-            <button type="button" class="secondary" id="shareBtn" title="현재 입력 상태를 링크로 공유">공유 링크</button>
-          </div>
         </div>
       </div>
     </section>
 
     <p class="muted" style="margin-top:12px">* 엉덩이 적합성 기준: 실제 길이 ≤ 엉덩이둘레.</p>
+
+    <div class="contact">
+      도안에 대한 문의 및 피드백<br>
+      카카오톡 채널 "나무늘보 뜨개 클럽"<br>
+      📧 : goronut@naver.com
+    </div>
   </div>
 
   <script>
@@ -108,8 +110,6 @@
     const inputs = { repeatCm: qs('#repeatCm'), waist: qs('#waist'), hip: qs('#hip') };
     const tableWrap = qs('#tableWrap');
     const statusMsg = qs('#statusMsg');
-    const copyBtn = qs('#copyBtn');
-    const shareBtn = qs('#shareBtn');
     const resetBtn = qs('#resetBtn');
 
     const KEY = 'ssk:calc:v4';
@@ -195,18 +195,6 @@
       return rows;
     }
 
-    function copyResult(){
-      const txt = tableWrap.innerText.replace(/\s+/g, '\n');
-      navigator.clipboard?.writeText(txt).then(()=>{ statusMsg.textContent='표 내용을 복사했어요.'; statusMsg.classList.remove('warnMsg'); }).catch(()=>{ statusMsg.textContent='복사 실패. 수동으로 복사해주세요.'; });
-    }
-
-    function shareLink(){
-      const params = new URLSearchParams();
-      for (const [k, el] of Object.entries(inputs)) params.set(k, el.value);
-      const url = `${location.origin}${location.pathname}?${params.toString()}`;
-      navigator.clipboard?.writeText(url).then(()=>{ statusMsg.textContent='현재 입력 상태 링크를 복사했어요.'; statusMsg.classList.remove('warnMsg'); }).catch(()=>{ statusMsg.textContent = url; });
-    }
-
     function resetAll(){
       form.reset();
       tableWrap.innerHTML = '<span class="muted">필수 값을 모두 입력해주세요.</span>';
@@ -218,8 +206,6 @@
 
     loadState();
     form.addEventListener('submit', (e) => { e.preventDefault(); const out = compute(); if(out) saveState(); });
-    copyBtn.addEventListener('click', copyResult);
-    shareBtn.addEventListener('click', shareLink);
     resetBtn.addEventListener('click', resetAll);
   </script>
 </body>
