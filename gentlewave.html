@@ -147,10 +147,10 @@
         <thead>
           <tr>
             <th>여유분</th>
-            <th>목표(cm)</th>
+            <th>목표 사이즈</th>
             <th>반복 횟수</th>
-            <th>실제 완성 사이즈(cm)</th>
-            <th>실제 여유분(cm)</th>
+            <th>실제 완성 사이즈</th>
+            <th>실제 여유분</th>
             <th>시작코수</th>
             <th>사이즈 적합</th>
           </tr>
@@ -158,10 +158,10 @@
       const body = rows.map(r => `
         <tr>
           <td>${fmt(r.ease,0)} cm</td>
-          <td>${fmt(r.target)}</td>
+          <td>${fmt(r.target)} cm</td>
           <td>${r.repeats}</td>
-          <td>${fmt(r.actual)}</td>
-          <td>${fmt(r.actualEase)}</td>
+          <td>${fmt(r.actual)} cm</td>
+          <td>${fmt(r.actualEase)} cm</td>
           <td><b>${r.totalSt}</b></td>
           <td>${r.hipOk ? '<span class="badge ok">적합</span>' : '<span class="badge warn">주의</span>'}</td>
         </tr>`).join('');
