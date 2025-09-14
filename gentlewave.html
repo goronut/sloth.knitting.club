@@ -84,7 +84,7 @@
 
       <div class="result" aria-live="polite" id="result" role="status">
         <h2>결과 (여유분 0 / 5 / 10 cm)</h2>
-        <p class="guideline">허리 둘레 + 여유분이 엉덩이 둘레 보다 클 경우, 겹침분이 많아질 수 있어 추천하지 않습니다<br>이 경우 <font color=#d0121b>주의</font> 표시가 결과값에 표시됩니다</p>
+        <p class="guideline">허리 둘레 + 여유분이 엉덩이 둘레 보다 클 경우, 겹침분이 많아질 수 있어 추천하지 않습니다<br>이 경우 <span class="badge warn">주의</span> 표시가 결과값에 표시됩니다</p>
         <div id="tableWrap" class="muted">계산하기 버튼을 눌러 결과를 확인하세요.</div>
         <div class="foot">
           <span class="muted" id="statusMsg">—</span>
@@ -148,11 +148,11 @@
           <tr>
             <th>여유분</th>
             <th>목표(cm)</th>
-            <th>반복수</th>
-            <th>실제(cm)</th>
-            <th>실제 여유(cm)</th>
-            <th>시작코</th>
-            <th>엉덩이 적합</th>
+            <th>반복횟수</th>
+            <th>완성 사이즈(cm)</th>
+            <th>실여유분(cm)</th>
+            <th>시작코수</th>
+            <th>사이즈 적합</th>
           </tr>
         </thead>`;
       const body = rows.map(r => `
@@ -187,10 +187,10 @@
       renderTable(rows, waist, hip, repeatCm);
       const anyWarn = rows.some(r => !r.hipOk);
       if(anyWarn){
-        statusMsg.textContent = '⚠️ 일부 케이스가 엉덩이둘레를 초과합니다.';
+        statusMsg.textContent = '⚠️ 일부 케이스가 엉덩이 둘레를 초과합니다';
         statusMsg.classList.add('warnMsg');
       } else {
-        statusMsg.textContent = '모든 케이스가 엉덩이둘레 이내입니다.';
+        statusMsg.textContent = '모든 케이스가 엉덩이 둘레 이내입니다';
         statusMsg.classList.remove('warnMsg');
       }
       return rows;
