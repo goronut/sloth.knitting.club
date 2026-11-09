@@ -2,558 +2,599 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>단추 위치 계산기 | 나무늘보 뜨개 클럽</title>
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      background: #f8f8f5;
-      color: #28372d;
-      font: 16px/1.6 Arial, "Noto Sans KR", sans-serif;
-    }
-    header {
-      padding: 25px 16px;
-      text-align: center;
-      background: white;
-      border-bottom: 1px solid #e4e9e1;
-    }
-    header h1 { margin: 0; font-size: 24px; }
-    header p { margin: 3px 0 0; color: #718075; }
-    nav {
-      text-align: center;
-      padding: 12px;
-      background: white;
-      border-bottom: 1px solid #e4e9e1;
-    }
-    nav a { color: #42674a; text-decoration: none; }
-    main {
-      max-width: 760px;
-      margin: auto;
-      padding: 24px 16px 60px;
-    }
-    h2 { margin: 0 0 4px; font-size: 24px; }
-    h3 { margin: 0 0 15px; font-size: 18px; }
-    p { margin: 8px 0; }
-    .muted { color: #69796e; font-size: 14px; }
-    .panel {
-      margin-top: 18px;
-      padding: 22px;
-      border: 1px solid #e2e8e0;
-      border-radius: 14px;
-      background: white;
-    }
-    .inputs {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-    }
-    label {
-      display: block;
-      margin-bottom: 6px;
-      font-weight: 600;
-    }
-    input, select {
-      width: 100%;
-      padding: 10px 11px;
-      border: 1px solid #cbd8cb;
-      border-radius: 8px;
-      background: white;
-      font: inherit;
-    }
-    input:focus, select:focus {
-      outline: 2px solid #a6c5aa;
-    }
-    .note {
-      margin-top: 14px;
-      padding: 12px 14px;
-      border-radius: 9px;
-      background: #f1f5ef;
-      font-size: 14px;
-    }
-    .summary {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-      margin: 15px 0;
-    }
-    .stat {
-      padding: 12px;
-      background: #f1f5ef;
-      border-radius: 9px;
-    }
-    .stat strong { display: block; font-size: 19px; }
-    .stat span {
-      display: block;
-      color: #5a6f5f;
-      font-size: 12px;
-    }
-    .sequence {
-      padding: 15px;
-      background: #f4f7f2;
-      border-radius: 9px;
-      line-height: 2.3;
-      overflow-wrap: anywhere;
-    }
-    .mark { font-weight: 700; color: #295f39; }
-    .detail { padding-left: 22px; font-size: 14px; }
-    .warning {
-      margin: 12px 0;
-      padding: 12px;
-      border: 1px solid #f0dbbb;
-      border-radius: 9px;
-      background: #fff6e8;
-      font-size: 14px;
-    }
-    .error {
-      margin-top: 14px;
-      color: #aa3434;
-      font-weight: 700;
-    }
-    button {
-      padding: 10px 15px;
-      border: 0;
-      border-radius: 8px;
-      color: white;
-      background: #456c4e;
-      font: inherit;
-      cursor: pointer;
-    }
-    button:hover { background: #315739; }
-    [hidden] { display: none !important; }
-    @media (max-width: 480px) {
-      .panel { padding: 16px; }
-      .inputs { grid-template-columns: 1fr; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>단추구멍 위치 계산기 | 나무늘보 뜨개 클럽</title>
+<style>
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: #f8f8f5; color: #28372d;
+  font: 16px/1.6 Arial, "Noto Sans KR", sans-serif;
+}
+header {
+  padding: 25px 16px; text-align: center;
+  background: white; border-bottom: 1px solid #e4e9e1;
+}
+header h1 { margin: 0; font-size: 24px; }
+header p { margin: 3px 0 0; color: #718075; }
+nav {
+  text-align: center; padding: 12px; background: white;
+  border-bottom: 1px solid #e4e9e1;
+}
+nav a { color: #42674a; text-decoration: none; }
+main { max-width: 760px; margin: auto; padding: 24px 16px 60px; }
+h2 { margin: 0 0 4px; font-size: 24px; }
+h3 { margin: 0 0 15px; font-size: 18px; }
+p { margin: 8px 0; }
+.muted { color: #69796e; font-size: 14px; }
+.panel {
+  margin-top: 18px; padding: 22px; border: 1px solid #e2e8e0;
+  border-radius: 14px; background: white;
+}
+.inputs {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+}
+label { display: block; margin-bottom: 6px; font-weight: 600; }
+input, select {
+  width: 100%; padding: 10px 11px; border: 1px solid #cbd8cb;
+  border-radius: 8px; background: white; font: inherit;
+}
+input:focus, select:focus { outline: 2px solid #a6c5aa; }
+.note {
+  margin-top: 14px; padding: 12px 14px; border-radius: 9px;
+  background: #f1f5ef; font-size: 14px;
+}
+.summary {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 10px; margin: 15px 0;
+}
+.stat { padding: 12px; background: #f1f5ef; border-radius: 9px; }
+.stat strong { display: block; font-size: 19px; }
+.stat span { display: block; color: #5a6f5f; font-size: 12px; }
+.sequence {
+  padding: 15px; background: #f4f7f2;
+  border-radius: 9px; line-height: 2.3; overflow-wrap: anywhere;
+}
+.mark { font-weight: 700; color: #295f39; }
+.detail { padding-left: 22px; font-size: 14px; }
+.warning {
+  margin: 12px 0; padding: 12px; border: 1px solid #f0dbbb;
+  border-radius: 9px; background: #fff6e8; font-size: 14px;
+}
+.error { margin-top: 14px; color: #aa3434; font-weight: 700; }
+button {
+  padding: 10px 15px; border: 0; border-radius: 8px;
+  color: white; background: #456c4e; font: inherit; cursor: pointer;
+}
+button:hover { background: #315739; }
+
+/* 세로 배치도 */
+.diagram-wrap {
+  display: grid; grid-template-columns: minmax(0,1fr); gap: 10px;
+}
+.diagram-canvas {
+  width: 100%; max-height: 480px; display: block;
+  background: #fbfcfa; border: 1px solid #e6ebe3;
+  border-radius: 12px;
+}
+.diagram-legend {
+  display: flex; flex-wrap: wrap; gap: 10px 18px;
+  font-size: 13px; color: #516257;
+}
+.swatch {
+  width: 13px; height: 13px; display: inline-block;
+  vertical-align: -2px; border-radius: 3px; margin-right: 4px;
+  border: 1px solid #b7c6b6;
+}
+.diagram-formulas {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 9px; margin-top: 10px;
+}
+.diagram-formulas div {
+  padding: 12px; background: #f1f5ef;
+  border-radius: 9px; font-size: 13px;
+}
+.diagram-formulas strong {
+  display: block; margin-bottom: 5px; color: #315b3c;
+}
+[hidden] { display: none !important; }
+@media(max-width:540px) {
+  .diagram-formulas { grid-template-columns: 1fr; }
+}
+@media(max-width:480px) {
+  .panel { padding: 16px; }
+  .inputs { grid-template-columns: 1fr; }
+}
+</style>
 </head>
 <body>
-  <header>
-    <h1>나무늘보 뜨개 클럽 🦥</h1>
-    <p>천천히, 즐겁게 뜨개를 즐기는 공간</p>
-  </header>
+<header>
+  <h1>나무늘보 뜨개 클럽 🦥</h1>
+  <p>천천히, 즐겁게 뜨개를 즐기는 공간</p>
+</header>
+<nav><a href="./index.html">← 홈으로 돌아가기</a></nav>
 
-  <nav>
-    <a href="./index.html">← 홈으로 돌아가기</a>
-  </nav>
+<main>
+<h2>단추구멍 위치 계산기</h2>
+<p class="muted">
+  뜨기 전에 단추 위치에 해당하는 코에 마커를 걸어주세요.
+</p>
 
-  <main>
-    <h2>단추구멍 위치 계산기</h2>
-    <p class="muted">
-      뜨기 전에 단추 위치에 해당하는 코에 마커를 걸어주세요.
+<section class="panel">
+  <h3>① 단추구멍 위치 배치 원리</h3>
+  <p class="muted">
+    완성된 앞섶을 기준으로 단추 중심을 정하고,
+    첫 단추와 마지막 단추 사이를 균등하게 나눕니다.
+  </p>
+  <div class="diagram-wrap">
+    <svg id="placementDiagram" class="diagram-canvas"
+         viewBox="0 0 570 475"
+         xmlns="http://www.w3.org/2000/svg"
+         role="img"
+         aria-label="단추 위치의 세로 배치도">
+      <text x="132" y="31" text-anchor="middle"
+            font-size="17" fill="#34473b">목</text>
+      <text x="132" y="458" text-anchor="middle"
+            font-size="17" fill="#34473b">밑단</text>
+      <rect x="94" y="47" width="76" height="382"
+            rx="7" fill="#f2f5f0"
+            stroke="#9bae9d" stroke-width="1.8"/>
+      <g id="diagramDynamic"></g>
+    </svg>
+    <div class="diagram-legend">
+      <span>
+        <i class="swatch" style="background:#dbe8dd"></i>
+        넥밴드 높이
+      </span>
+      <span>
+        <i class="swatch" style="background:#e8e3d5"></i>
+        밑단 밴드
+      </span>
+      <span>
+        <i class="swatch"
+           style="background:#427753;border-radius:50%"></i>
+        단추 중심
+      </span>
+    </div>
+    <p id="diagramDescription" class="muted"></p>
+    <div class="diagram-formulas">
+      <div>
+        <strong>첫 단추</strong>
+        윗끝에서 (단추 지름 ÷ 2) + 0.5cm
+      </div>
+      <div>
+        <strong>중간 단추</strong>
+        첫 단추와 마지막 단추 사이를 균등 분배
+      </div>
+      <div>
+        <strong>마지막 단추</strong>
+        밑단 끝에서 밑단 밴드 길이 − 0.5cm
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="panel">
+  <h3>② 치수와 코수 입력</h3>
+  <div class="inputs">
+    <div>
+      <label for="basis">코수 입력 기준</label>
+      <select id="basis">
+        <option value="exclude">
+          넥밴드 제외 · 몸판에서 주운 코수
+        </option>
+        <option value="include">
+          넥밴드 포함 · 실제 주운 전체 코수
+        </option>
+      </select>
+    </div>
+    <div>
+      <label for="total">앞섶에서 주운 코수</label>
+      <input id="total" type="number"
+             min="2" step="1" value="100">
+    </div>
+    <div>
+      <label for="gauge">코수 게이지 (10cm당)</label>
+      <input id="gauge" type="number"
+             min="0.1" step="0.1" value="24">
+    </div>
+    <div>
+      <label for="buttons">단추 개수</label>
+      <input id="buttons" type="number"
+             min="2" step="1" value="6">
+    </div>
+    <div>
+      <label for="diameter">단추 지름 (cm)</label>
+      <input id="diameter" type="number"
+             min="0.1" step="0.1" value="1.8">
+    </div>
+    <div>
+      <label for="neck">넥밴드 높이 (cm)</label>
+      <input id="neck" type="number"
+             min="0" step="0.1" value="2.5">
+    </div>
+    <div>
+      <label for="hem">몸판 밑단 밴드 길이 (cm)</label>
+      <input id="hem" type="number"
+             min="0.6" step="0.1" value="4">
+    </div>
+    <div>
+      <label for="direction">코수 표시 방향</label>
+      <select id="direction">
+        <option value="top">목 → 밑단</option>
+        <option value="bottom">밑단 → 목</option>
+      </select>
+    </div>
+  </div>
+  <div class="note">
+    <strong>단추 배치 기준</strong>
+    <p>
+      첫 단추 중심: 완성된 앞섶 윗끝에서
+      <strong>(단추 지름 ÷ 2) + 0.5cm</strong>
     </p>
-
-    <section class="panel">
-      <h3>① 치수와 코수 입력</h3>
-
-      <div class="inputs">
-        <div>
-          <label for="basis">코수 입력 기준</label>
-          <select id="basis">
-            <option value="exclude">
-              넥밴드 제외 · 몸판에서 주운 코수
-            </option>
-            <option value="include">
-              넥밴드 포함 · 실제 주운 전체 코수
-            </option>
-          </select>
-        </div>
-
-        <div>
-          <label for="total">앞섶에서 주운 코수</label>
-          <input id="total" type="number"
-                 min="2" step="1" value="100">
-        </div>
-
-        <div>
-          <label for="gauge">코수 게이지 (10cm당)</label>
-          <input id="gauge" type="number"
-                 min="0.1" step="0.1" value="24">
-        </div>
-
-        <div>
-          <label for="buttons">단추 개수</label>
-          <input id="buttons" type="number"
-                 min="2" step="1" value="6">
-        </div>
-
-        <div>
-          <label for="diameter">단추 지름 (cm)</label>
-          <input id="diameter" type="number"
-                 min="0.1" step="0.1" value="1.8">
-        </div>
-
-        <div>
-          <label for="neck">넥밴드 높이 (cm)</label>
-          <input id="neck" type="number"
-                 min="0" step="0.1" value="2.5">
-        </div>
-
-        <div>
-          <label for="hem">몸판 밑단 밴드 길이 (cm)</label>
-          <input id="hem" type="number"
-                 min="0.6" step="0.1" value="4">
-        </div>
-
-        <div>
-          <label for="direction">코수 표시 방향</label>
-          <select id="direction">
-            <option value="top">목 → 밑단</option>
-            <option value="bottom">밑단 → 목</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="note">
-        <strong>단추 배치 기준</strong>
-        <p>
-          첫 단추 중심: 완성된 앞섶 윗끝에서
-          <strong>(단추 지름 ÷ 2) + 0.5cm</strong>
-        </p>
-        <p>
-          마지막 단추 중심: 밑단 끝에서
-          <strong>밑단 밴드 길이 − 0.5cm</strong>
-        </p>
-        <p>
-          넥밴드 높이는 <strong>길이(cm)</strong>로만
-          반영하며 코수로 환산해 추가하지 않습니다.
-        </p>
-      </div>
-    </section>
-
-    <p id="error" class="error"
-       role="alert" hidden></p>
-
-    <section id="result" class="panel">
-      <h3>② 마커 배치 결과</h3>
-
-      <div class="summary">
-        <div class="stat">
-          <strong id="stitchCount">—</strong>
-          <span>현재 주운 코수</span>
-        </div>
-        <div class="stat">
-          <strong id="fullLength">—</strong>
-          <span>완성 앞섶의 예상 길이</span>
-        </div>
-      </div>
-
-      <p id="spacing" class="muted"></p>
-      <div id="sequence" class="sequence"></div>
-      <div id="neckNotice" class="warning" hidden></div>
-
-      <h3 style="margin-top: 22px;">코에 마커 걸기</h3>
-      <ol id="markerList" class="detail"></ol>
-
-      <p class="note">
-        일반 코수와 <strong>1코(단추 위치)</strong>를
-        합하면 입력한 코수와 정확히 같습니다.
-        마커는 코 사이가 아닌
-        <strong>해당 코 자체</strong>에 걸어주세요.
-      </p>
-
-      <button id="copy" type="button">
-        계산 결과 복사
-      </button>
-    </section>
-  </main>
-
-  <script>
-    const $ = id => document.getElementById(id);
-
-    const fmt = n =>
-      Number(n.toFixed(2)).toLocaleString('ko-KR');
-
-    let copyText = '';
-
-    function calculate() {
-      const ids = [
-        'total', 'gauge', 'buttons',
-        'diameter', 'neck', 'hem'
-      ];
-
-      const data = Object.fromEntries(
-        ids.map(id => [id, Number($(id).value)])
-      );
-
-      const {
-        total, gauge, buttons, diameter, neck, hem
-      } = data;
-
-      const basis = $('basis').value;
-      const direction = $('direction').value;
-      const rate = gauge / 10;
-
-      let error = '';
-
-      if (ids.some(id => $(id).value.trim() === '')) {
-        error = '모든 값을 입력해주세요.';
-      } else if (
-        !Number.isInteger(total) || total < 2
-      ) {
-        error = '코수는 2 이상의 정수여야 합니다.';
-      } else if (
-        !Number.isInteger(buttons) || buttons < 2
-      ) {
-        error = '단추 개수는 2 이상의 정수여야 합니다.';
-      } else if (
-        !(gauge > 0 && diameter > 0 &&
-          neck >= 0 && hem > 0.5)
-      ) {
-        error =
-          '게이지, 단추 지름, 넥밴드 높이, ' +
-          '밑단 길이를 확인해주세요.';
-      } else if (
-        buttons > total + (basis === 'exclude' ? 1 : 0)
-      ) {
-        error = '현재 코수에 비해 단추가 너무 많습니다.';
-      }
-
-      // 실제 주운 코수는 변경하지 않습니다.
-      // 넥밴드 제외 시 완성 길이에 넥밴드 높이만 더함
-      const currentLength = total / rate;
-
-      const completedLength =
-        currentLength +
-        (basis === 'exclude' ? neck : 0);
-
-      // 완성된 앞섶의 첫 단추 위치
-      const firstCm = diameter / 2 + 0.5;
-
-      // 완성된 앞섶의 마지막 단추 위치
-      const lastCm =
-        completedLength - (hem - 0.5);
-
-      // 넥밴드 제외 시 몸판 코수의 시작 위치
-      const offset =
-        basis === 'exclude' ? neck : 0;
-
-      const slots = [];
-      const later = [];
-
-      if (!error && (
-        lastCm <= firstCm ||
-        lastCm > completedLength
-      )) {
-        error =
-          '첫 단추와 마지막 단추를 놓을 ' +
-          '공간이 부족합니다.';
-      }
-
-      if (!error) {
-        for (let n = 0; n < buttons; n++) {
-          // 단추 중심의 완성 위치
-          const targetCm =
-            firstCm +
-            (lastCm - firstCm) * n / (buttons - 1);
-
-          // 현재 주운 코수 구간 내의 위치
-          const positionOnBand = targetCm - offset;
-
-          if (
-            basis === 'exclude' &&
-            positionOnBand < 0
-          ) {
-            // 나중에 작업할 넥밴드 영역
-            later.push({
-              number: n + 1,
-              cm: targetCm
-            });
-          } else {
-            // 위치에 가장 가까운 코 선택
-            const stitch = Math.round(
-              positionOnBand * rate + 0.5
-            );
-
-            if (stitch < 1 || stitch > total) {
-              error =
-                '단추 위치가 현재 코수 범위를 ' +
-                '벗어났습니다.';
-              break;
-            }
-
-            slots.push({
-              number: n + 1,
-              stitch
-            });
-          }
-        }
-      }
-
-      if (!error && slots.some((item, index) =>
-        index > 0 &&
-        item.stitch <= slots[index - 1].stitch
-      )) {
-        error =
-          '두 단추가 같은 코에 배치됩니다. ' +
-          '코수 또는 단추 개수를 조정해주세요.';
-      }
-
-      $('error').hidden = !error;
-      $('error').textContent = error;
-      $('result').hidden = !!error;
-
-      if (error) return;
-
-      // 표시 방향에 맞게 위치 변경
-      const oriented = slots.map(item => ({
-        number: item.number,
-        stitch:
-          direction === 'top'
-            ? item.stitch
-            : total + 1 - item.stitch
-      })).sort((a, b) => a.stitch - b.stitch);
-
-      const sequenceParts = [];
-      let prev = 0;
-
-      const list = $('markerList');
-      list.replaceChildren();
-
-      const origin =
-        direction === 'top'
-          ? '목 쪽 끝'
-          : '밑단 쪽 끝';
-
-      for (const item of oriented) {
-        const plain = item.stitch - prev - 1;
-
-        if (plain > 0) {
-          sequenceParts.push(plain + '코');
-        }
-
-        sequenceParts.push(
-          '1코(단추 ' + item.number + ' 위치)'
-        );
-
-        prev = item.stitch;
-
-        const li = document.createElement('li');
-
-        li.textContent =
-          '단추 ' + item.number + ': ' +
-          origin + '에서 ' +
-          item.stitch + '번째 코';
-
-        list.appendChild(li);
-      }
-
-      if (total - prev > 0) {
-        sequenceParts.push(
-          (total - prev) + '코'
-        );
-      }
-
-      // 한 줄로 코수와 단추 위치 표시
-      const view = $('sequence');
-      view.replaceChildren();
-
-      sequenceParts.forEach((part, i) => {
-        if (i) {
-          view.appendChild(
-            document.createTextNode(' – ')
-          );
-        }
-
-        if (part.startsWith('1코(')) {
-          const strong =
-            document.createElement('strong');
-
-          strong.className = 'mark';
-          strong.textContent = part;
-          view.appendChild(strong);
-        } else {
-          view.appendChild(
-            document.createTextNode(part)
-          );
-        }
-      });
-
-      // 아직 작업하지 않은 넥밴드에 있는 단추
-      const notice = $('neckNotice');
-      notice.hidden = later.length === 0;
-
-      notice.textContent = later.length
-        ? '넥밴드를 나중에 뜨는 경우, ' +
-          later.map(x =>
-            '단추 ' + x.number +
-            '은 완성된 넥밴드 윗끝에서 ' +
-            fmt(x.cm) + 'cm'
-          ).join(' / ') +
-          ' 위치에 해당합니다. ' +
-          '현재 몸판 코에는 마커를 걸 수 없으므로 ' +
-          '넥밴드 작업 후 별도로 표시해주세요. ' +
-          '넥밴드의 단수 위치를 계산하려면 ' +
-          '단수 게이지가 필요합니다.'
-        : '';
-
-      $('stitchCount').textContent =
-        total + '코';
-
-      $('fullLength').textContent =
-        fmt(completedLength) + 'cm';
-
-      $('spacing').textContent =
-        '완성 기준 첫 단추: 윗끝에서 ' +
-        fmt(firstCm) + 'cm' +
-        ' · 마지막 단추: 밑단에서 ' +
-        fmt(hem - 0.5) + 'cm' +
-        ' · 단추 사이 간격: 약 ' +
-        fmt((lastCm - firstCm) / (buttons - 1)) +
-        'cm';
-
-      // 결과 복사를 위한 텍스트
-      copyText = [
-        '단추구멍 위치 계산기',
-        '입력 기준: ' +
-          (basis === 'exclude'
-            ? '넥밴드 제외'
-            : '넥밴드 포함'),
-        '현재 코수: ' + total +
-          '코, 완성 예상 길이: ' +
-          fmt(completedLength) + 'cm',
-        '표시 방향: ' +
-          (direction === 'top'
-            ? '목 → 밑단'
-            : '밑단 → 목'),
-        sequenceParts.join(' - '),
-        ...oriented.map(x =>
-          '단추 ' + x.number + ': ' +
-          origin + '에서 ' +
-          x.stitch + '번째 코'
-        ),
-        notice.textContent
-      ].filter(Boolean).join('\n');
-    }
-
-    // 입력값 변경 시 자동 계산
-    document.querySelectorAll(
-      'input, select'
-    ).forEach(element => {
-      element.addEventListener(
-        'input', calculate
-      );
-      element.addEventListener(
-        'change', calculate
-      );
+    <p>
+      마지막 단추 중심: 밑단 끝에서
+      <strong>밑단 밴드 길이 − 0.5cm</strong>
+    </p>
+    <p>
+      넥밴드 높이는 길이(cm)로만 반영하며
+      코수로 환산해 추가하지 않습니다.
+    </p>
+  </div>
+</section>
+
+<p id="error" class="error" role="alert" hidden></p>
+
+<section id="result" class="panel">
+  <h3>③ 마커 배치 결과</h3>
+  <div class="summary">
+    <div class="stat">
+      <strong id="stitchCount">—</strong>
+      <span>현재 주운 코수</span>
+    </div>
+    <div class="stat">
+      <strong id="fullLength">—</strong>
+      <span>완성 앞섶의 예상 길이</span>
+    </div>
+  </div>
+  <p id="spacing" class="muted"></p>
+  <div id="sequence" class="sequence"></div>
+  <div id="neckNotice" class="warning" hidden></div>
+  <h3 style="margin-top:22px">코에 마커 걸기</h3>
+  <ol id="markerList" class="detail"></ol>
+  <p class="note">
+    일반 코수와 <strong>1코(단추 위치)</strong>를
+    합하면 입력한 코수와 정확히 같습니다.
+    마커는 코 사이가 아닌 해당 코에 걸어주세요.
+  </p>
+  <button id="copy" type="button">계산 결과 복사</button>
+</section>
+</main>
+
+<script>
+const $ = id => document.getElementById(id);
+const fmt = n =>
+  Number(n.toFixed(2)).toLocaleString('ko-KR');
+let copyText = '';
+
+function drawDiagram(fullCm, neckCm, hemCm, positions, basis) {
+  const layer = $('diagramDynamic');
+  layer.replaceChildren();
+
+  const NS = 'http://www.w3.org/2000/svg';
+  const startY = 47;
+  const height = 382;
+  const endY = startY + height;
+  const yFromCm = cm =>
+    startY + Math.max(0, Math.min(1, cm / fullCm)) * height;
+
+  function shape(tag, attrs, label) {
+    const node = document.createElementNS(NS, tag);
+    Object.entries(attrs).forEach(([key, value]) => {
+      node.setAttribute(key, String(value));
     });
+    if (label !== undefined) node.textContent = label;
+    layer.appendChild(node);
+  }
 
-    // 결과 복사
-    $('copy').addEventListener(
-      'click', async () => {
-        try {
-          await navigator.clipboard.writeText(copyText);
-          $('copy').textContent = '복사했어요 ✓';
-        } catch {
-          $('copy').textContent =
-            '복사가 안 되면 결과를 ' +
-            '직접 선택해 복사해주세요';
+  const neckY = yFromCm(neckCm);
+  const hemY = yFromCm(fullCm - hemCm);
+
+  if (neckCm > 0) {
+    shape('rect', {
+      x: 94, y: startY, width: 76,
+      height: Math.max(0, neckY - startY),
+      fill: '#dbe8dd',
+      stroke: basis === 'exclude' ? '#5c8566' : 'none',
+      'stroke-dasharray': basis === 'exclude' ? '5 4' : 'none'
+    });
+    shape('line', {
+      x1: 94, y1: neckY, x2: 170, y2: neckY,
+      stroke: '#91a893', 'stroke-width': 1.4
+    });
+  }
+
+  if (hemCm > 0) {
+    shape('rect', {
+      x: 94, y: hemY, width: 76,
+      height: Math.max(0, endY - hemY),
+      fill: '#e8e3d5'
+    });
+    shape('line', {
+      x1: 94, y1: hemY, x2: 170, y2: hemY,
+      stroke: '#b8ab91', 'stroke-width': 1.4
+    });
+  }
+
+  positions.forEach((cm, i) => {
+    const y = yFromCm(cm);
+    shape('circle', {
+      cx: 132, cy: y, r: 10,
+      fill: '#427753',
+      stroke: '#fff', 'stroke-width': 2
+    });
+    shape('text', {
+      x: 132, y: y + 4.1,
+      'text-anchor': 'middle',
+      'font-size': 11,
+      'font-weight': 700,
+      fill: '#fff'
+    }, String(i + 1));
+  });
+
+  const firstY = yFromCm(positions[0]);
+  const lastY = yFromCm(positions[positions.length - 1]);
+
+  shape('line', {
+    x1: 170, y1: firstY, x2: 195, y2: firstY,
+    stroke: '#568263', 'stroke-dasharray': '3 3'
+  });
+  shape('text', {
+    x: 200, y: firstY - 5,
+    'font-size': 14, 'font-weight': 700,
+    fill: '#305b3b'
+  }, '첫 단추 · 윗끝에서 ' + fmt(positions[0]) + 'cm');
+
+  shape('line', {
+    x1: 170, y1: lastY, x2: 195, y2: lastY,
+    stroke: '#568263', 'stroke-dasharray': '3 3'
+  });
+  shape('text', {
+    x: 200, y: lastY - 6,
+    'font-size': 14, 'font-weight': 700,
+    fill: '#305b3b'
+  }, '마지막 단추 · 밑단에서 ' +
+    fmt(fullCm - positions[positions.length - 1]) + 'cm');
+
+  if (lastY - firstY > 30) {
+    shape('line', {
+      x1: 183, y1: firstY + 15,
+      x2: 183, y2: lastY - 15,
+      stroke: '#91a893',
+      'stroke-dasharray': '4 6',
+      'stroke-width': 2
+    });
+  }
+
+  shape('text', {
+    x: 202, y: (firstY + lastY) / 2,
+    'font-size': 13, fill: '#5d6d61'
+  }, '동일한 간격');
+
+  $('diagramDescription').textContent =
+    basis === 'exclude'
+      ? '점선으로 표시한 넥밴드는 나중에 추가될 높이입니다. 몸판에서 주운 코수에 넥밴드 길이를 코수로 더하지 않습니다.'
+      : '넥밴드가 포함된 전체 앞섶을 기준으로 표시한 배치도입니다.';
+}
+
+function calculate() {
+  const ids = [
+    'total', 'gauge', 'buttons',
+    'diameter', 'neck', 'hem'
+  ];
+  const data = Object.fromEntries(
+    ids.map(id => [id, Number($(id).value)])
+  );
+  const {
+    total, gauge, buttons, diameter, neck, hem
+  } = data;
+
+  const basis = $('basis').value;
+  const direction = $('direction').value;
+  const rate = gauge / 10;
+  let error = '';
+
+  if (ids.some(id => $(id).value.trim() === '')) {
+    error = '모든 값을 입력해주세요.';
+  } else if (!Number.isInteger(total) || total < 2) {
+    error = '코수는 2 이상의 정수여야 합니다.';
+  } else if (!Number.isInteger(buttons) || buttons < 2) {
+    error = '단추 개수는 2개 이상이어야 합니다.';
+  } else if (!(gauge > 0 && diameter > 0 &&
+               neck >= 0 && hem > 0.5)) {
+    error = '입력값을 확인해주세요.';
+  } else if (
+    buttons > total + (basis === 'exclude' ? 1 : 0)
+  ) {
+    error = '단추 개수가 현재 코수에 비해 너무 많습니다.';
+  }
+
+  const currentLength = total / rate;
+  const completedLength = currentLength +
+    (basis === 'exclude' ? neck : 0);
+
+  const firstCm = diameter / 2 + 0.5;
+  const lastCm = completedLength - (hem - 0.5);
+  const offset = basis === 'exclude' ? neck : 0;
+
+  const slots = [];
+  const later = [];
+  const targetPositions = [];
+
+  if (!error && (
+    lastCm <= firstCm || lastCm > completedLength
+  )) {
+    error = '첫 단추와 마지막 단추를 배치할 공간이 부족합니다.';
+  }
+
+  if (!error) {
+    for (let n = 0; n < buttons; n++) {
+      const targetCm = firstCm +
+        (lastCm - firstCm) * n / (buttons - 1);
+
+      targetPositions.push(targetCm);
+      const positionOnBand = targetCm - offset;
+
+      if (basis === 'exclude' && positionOnBand < 0) {
+        later.push({
+          number: n + 1, cm: targetCm
+        });
+      } else {
+        const stitch = Math.round(
+          positionOnBand * rate + 0.5
+        );
+        if (stitch < 1 || stitch > total) {
+          error = '단추 위치가 코수 범위를 벗어났습니다.';
+          break;
         }
+        slots.push({
+          number: n + 1, stitch
+        });
       }
-    );
+    }
+  }
 
-    calculate();
-  </script>
+  if (!error && slots.some((item, i) =>
+    i > 0 && item.stitch <= slots[i - 1].stitch
+  )) {
+    error = '두 단추가 같은 코에 배치됩니다.';
+  }
+
+  $('error').hidden = !error;
+  $('error').textContent = error;
+  $('result').hidden = !!error;
+
+  if (error) {
+    $('diagramDynamic').replaceChildren();
+    $('diagramDescription').textContent =
+      '입력값을 확인하면 배치도가 표시됩니다.';
+    return;
+  }
+
+  drawDiagram(
+    completedLength, neck, hem, targetPositions, basis
+  );
+
+  const oriented = slots.map(item => ({
+    number: item.number,
+    stitch: direction === 'top'
+      ? item.stitch
+      : total + 1 - item.stitch
+  })).sort((a, b) => a.stitch - b.stitch);
+
+  const sequenceParts = [];
+  const list = $('markerList');
+  list.replaceChildren();
+  let prev = 0;
+
+  const origin = direction === 'top'
+    ? '목 쪽 끝' : '밑단 쪽 끝';
+
+  for (const item of oriented) {
+    const plain = item.stitch - prev - 1;
+
+    if (plain > 0) {
+      sequenceParts.push(plain + '코');
+    }
+    sequenceParts.push(
+      '1코(단추 ' + item.number + ' 위치)'
+    );
+    prev = item.stitch;
+
+    const li = document.createElement('li');
+    li.textContent =
+      '단추 ' + item.number + ': ' +
+      origin + '에서 ' + item.stitch + '번째 코';
+    list.appendChild(li);
+  }
+
+  if (total - prev > 0) {
+    sequenceParts.push((total - prev) + '코');
+  }
+
+  const view = $('sequence');
+  view.replaceChildren();
+
+  sequenceParts.forEach((part, i) => {
+    if (i) {
+      view.appendChild(document.createTextNode(' – '));
+    }
+    if (part.startsWith('1코(')) {
+      const strong = document.createElement('strong');
+      strong.className = 'mark';
+      strong.textContent = part;
+      view.appendChild(strong);
+    } else {
+      view.appendChild(document.createTextNode(part));
+    }
+  });
+
+  const notice = $('neckNotice');
+  notice.hidden = later.length === 0;
+  notice.textContent = later.length
+    ? '넥밴드를 나중에 뜨는 경우 ' +
+      later.map(x =>
+        '단추 ' + x.number +
+        '은 완성된 넥밴드 윗끝에서 ' +
+        fmt(x.cm) + 'cm'
+      ).join(' / ') +
+      ' 위치에 해당합니다. 넥밴드 작업 후 표시해주세요.'
+    : '';
+
+  $('stitchCount').textContent = total + '코';
+  $('fullLength').textContent =
+    fmt(completedLength) + 'cm';
+  $('spacing').textContent =
+    '완성 기준 첫 단추: 윗끝에서 ' +
+    fmt(firstCm) + 'cm · 마지막 단추: 밑단에서 ' +
+    fmt(hem - 0.5) + 'cm · 단추 사이 간격: 약 ' +
+    fmt((lastCm - firstCm) / (buttons - 1)) + 'cm';
+
+  copyText = [
+    '단추구멍 위치 계산기',
+    '입력 기준: ' +
+      (basis === 'exclude'
+        ? '넥밴드 제외' : '넥밴드 포함'),
+    '현재 코수: ' + total + '코',
+    '완성 예상 길이: ' + fmt(completedLength) + 'cm',
+    '표시 방향: ' +
+      (direction === 'top'
+        ? '목 → 밑단' : '밑단 → 목'),
+    sequenceParts.join(' - '),
+    ...oriented.map(x =>
+      '단추 ' + x.number + ': ' +
+      origin + '에서 ' + x.stitch + '번째 코'
+    ),
+    notice.textContent
+  ].filter(Boolean).join('\n');
+}
+
+document.querySelectorAll('input, select').forEach(element => {
+  element.addEventListener('input', calculate);
+  element.addEventListener('change', calculate);
+});
+
+$('copy').addEventListener('click', async () => {
+  try {
+    await navigator.clipboard.writeText(copyText);
+    $('copy').textContent = '복사했어요 ✓';
+  } catch {
+    $('copy').textContent =
+      '복사가 안 되면 결과를 직접 선택해서 복사해주세요.';
+  }
+});
+
+calculate();
+</script>
 </body>
 </html>
