@@ -160,7 +160,7 @@ button:hover { background: #315739; }
     <div class="diagram-formulas">
       <div>
         <strong>첫 단추</strong>
-        윗끝에서 (단추 지름 ÷ 2) + 0.5cm
+        윗끝에서 (단추 지름 ÷ 2) + 1.0cm
       </div>
       <div>
         <strong>중간 단추</strong>
@@ -230,7 +230,7 @@ button:hover { background: #315739; }
     <strong>단추 배치 기준</strong>
     <p>
       첫 단추 중심: 완성된 앞섶 윗끝에서
-      <strong>(단추 지름 ÷ 2) + 0.5cm</strong>
+      <strong>(단추 지름 ÷ 2) + 1.0cm</strong>
     </p>
     <p>
       마지막 단추 중심: 밑단 끝에서
@@ -423,7 +423,7 @@ function calculate() {
   const completedLength = currentLength +
     (basis === 'exclude' ? neck : 0);
 
-  const firstCm = diameter / 2 + 0.5;
+  const firstCm = diameter / 2 + 1.0;
   const lastCm = completedLength - (hem - 0.5);
   const offset = basis === 'exclude' ? neck : 0;
 
