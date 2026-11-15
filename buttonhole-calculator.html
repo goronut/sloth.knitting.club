@@ -5,8 +5,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>둥굴레 가디건🌿-단추 위치 계산기</title>
+
 <style>
-*, *::before, *::after { box-sizing: border-box; }
+*, *::before, *::after {
+  box-sizing: border-box;
+}
 
 :root {
   --bg: #fafafa;
@@ -41,27 +44,7 @@ body {
     "Segoe UI", Roboto, "Noto Sans KR", Arial, sans-serif;
 }
 
-header { text-align: center; margin-bottom: 12px; }
-
-header h1 {
-  margin: 0 0 4px;
-  font: 600 clamp(1.2rem, 2vw + 1rem, 1.7rem)
-    "Times New Roman", serif;
-}
-
-header p { color: var(--muted); margin: 4px 0; }
-
-nav { text-align: center; margin-bottom: 20px; }
-nav a { color: var(--cont); text-decoration: none; }
-nav a:hover { text-decoration: underline; }
-
-main { max-width: 760px; margin: auto; }
-
-h2 { font-size: 24px; margin: 0 0 10px; }
-h3 { font-size: 18px; margin: 0 0 14px; }
-h4 { margin: 0 0 10px; }
-p { margin: 8px 0; }
-
+/* 상단 공방 소개와 홈 링크 */
 .site-top {
   background: #ffffff;
   color: #1f2937;
@@ -69,10 +52,67 @@ p { margin: 8px 0; }
   padding: 24px 16px 20px;
   border-bottom: 1px solid #e5e7eb;
 }
-  
-.muted { color: var(--muted); font-size: 14px; margin-top: 6px; }
 
-  .panel {
+header {
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+header h1 {
+  margin: 0 0 4px;
+  font: 600 clamp(1.2rem, 2vw + 1rem, 1.7rem)
+    "Times New Roman", serif;
+}
+
+header p {
+  color: #6b7280;
+  margin: 4px 0;
+}
+
+nav {
+  text-align: center;
+  margin-bottom: 0;
+}
+
+nav a {
+  color: var(--cont);
+  text-decoration: none;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+main {
+  max-width: 760px;
+  margin: auto;
+}
+
+h2 {
+  font-size: 24px;
+  margin: 0 0 10px;
+}
+
+h3 {
+  font-size: 18px;
+  margin: 0 0 14px;
+}
+
+h4 {
+  margin: 0 0 10px;
+}
+
+p {
+  margin: 8px 0;
+}
+
+.muted {
+  color: var(--muted);
+  font-size: 14px;
+  margin-top: 6px;
+}
+
+.panel {
   background: var(--card);
   border: 1px solid var(--line);
   border-radius: 12px;
@@ -125,7 +165,9 @@ input:focus, select:focus {
   font-size: 14px;
 }
 
-.note strong { color: var(--text); }
+.note strong {
+  color: var(--text);
+}
 
 .error {
   color: var(--warn);
@@ -199,7 +241,10 @@ input:focus, select:focus {
   font-weight: 700;
 }
 
-.details { padding-left: 24px; font-size: 14px; }
+.details {
+  padding-left: 24px;
+  font-size: 14px;
+}
 
 button {
   padding: 12px 14px;
@@ -212,7 +257,9 @@ button {
   cursor: pointer;
 }
 
-button:hover { background: #374151; }
+button:hover {
+  background: #374151;
+}
 
 .contact {
   max-width: 760px;
@@ -233,35 +280,49 @@ button:hover { background: #374151; }
   opacity: .8;
 }
 
-[hidden] { display: none !important; }
+[hidden] {
+  display: none !important;
+}
 
 @media (max-width: 520px) {
-  .panel { padding: 16px; }
-  .inputs { grid-template-columns: 1fr; }
+  .panel {
+    padding: 16px;
+  }
+
+  .inputs {
+    grid-template-columns: 1fr;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<header>
-  <h1>나무늘보 뜨개 클럽 🦥</h1>
-  <p>Slow and Steady</p>
-</header>
+<!-- 흰색 배경이 적용되는 상단 영역 -->
+<div class="site-top">
+  <header>
+    <h1>나무늘보 뜨개 클럽 🦥</h1>
+    <p>Slow and Steady</p>
+  </header>
 
-<nav>
-  <a href="./index.html">← 홈으로 돌아가기</a>
-</nav>
+  <nav>
+    <a href="./index.html">← 홈으로 돌아가기</a>
+  </nav>
+</div>
 
 <main>
 
-<h2><center>둥굴레 가디건🌿-단추 위치 계산기</center></h2>
+<h2 style="text-align:center">
+  둥굴레 가디건🌿-단추 위치 계산기
+</h2>
+
 <p class="muted">
   단추 위치에 해당하는 코를 알려줍니다<br>
   1. 버튼 밴드에 해당하는 전체 콧수를 입력하고,
-    넥 밴드와 몸통 밴드에 해당하는 콧수를 입력합니다<br>
+  넥 밴드와 몸통 밴드에 해당하는 콧수를 입력합니다<br>
   2. 단추의 직경, 단추의 개수를 입력합니다<br>
-  3. 계산된 코의 위치를 보고 단추가 위치할 코에 마커를 걸어줍니다
+  3. 계산된 코의 위치를 보고 단추가 위치할 코에
+  마커를 걸어줍니다
 </p>
 
 <section class="panel">
@@ -279,7 +340,9 @@ button:hover { background: #374151; }
           fill="#1f2937">목</text>
 
     <rect x="82" y="45"
-          width="76" height="380" rx="7"
+          width="76"
+          height="380"
+          rx="7"
           fill="#f3f4f6"
           stroke="#9ca3af"
           stroke-width="2"/>
@@ -294,17 +357,23 @@ button:hover { background: #374151; }
 
   <div class="legend">
     <span>
-      <i class="swatch" style="background:#dbeafe"></i>
+      <i class="swatch"
+         style="background:#dbeafe"></i>
       넥밴드
     </span>
+
     <span>
-      <i class="swatch" style="background:#f3f4f6"></i>
+      <i class="swatch"
+         style="background:#f3f4f6"></i>
       몸판
     </span>
+
     <span>
-      <i class="swatch" style="background:#e5e7eb"></i>
+      <i class="swatch"
+         style="background:#e5e7eb"></i>
       밑단 밴드
     </span>
+
     <span>
       <i class="swatch"
          style="background:#4d99e8;border-radius:50%"></i>
@@ -324,14 +393,19 @@ button:hover { background: #374151; }
       <strong>(단추 지름 ÷ 2) + 1cm</strong>
       떨어진 위치
     </p>
+
     <p>
       <strong>마지막 단추:</strong>
-      밑단 끝에서 <strong>3cm</strong> 올라온 위치
+      밑단 끝에서
+      <strong>3cm</strong> 올라온 위치
     </p>
+
     <p>
       <strong>중간 단추:</strong>
-      첫 단추와 마지막 단추 사이의 코수를 균등 분배
+      첫 단추와 마지막 단추 사이의 코수를
+      균등 분배
     </p>
+
     <p>
       실제 코에 표시하므로 계산된 위치는
       가장 가까운 코 중심으로 조정됩니다.
@@ -347,28 +421,40 @@ button:hover { background: #374151; }
       <label for="total">
         앞섶 전체 픽업 코수 (넥밴드 포함)
       </label>
-      <input id="total" type="number"
-             min="3" step="1" value="160">
+      <input id="total"
+             type="number"
+             min="3"
+             step="1"
+             value="160">
     </div>
 
     <div>
       <label for="gauge">
         몸판 코수 게이지 (10cm당)
       </label>
-      <input id="gauge" type="number"
-             min="0.1" step="0.1" value="24">
+      <input id="gauge"
+             type="number"
+             min="0.1"
+             step="0.1"
+             value="24">
     </div>
 
     <div>
       <label for="buttons">단추 개수</label>
-      <input id="buttons" type="number"
-             min="2" step="1" value="6">
+      <input id="buttons"
+             type="number"
+             min="2"
+             step="1"
+             value="6">
     </div>
 
     <div>
       <label for="diameter">단추 지름 (cm)</label>
-      <input id="diameter" type="number"
-             min="0.1" step="0.1" value="1.8">
+      <input id="diameter"
+             type="number"
+             min="0.1"
+             step="0.1"
+             value="1.8">
     </div>
   </div>
 
@@ -377,17 +463,25 @@ button:hover { background: #374151; }
 
     <div class="inputs">
       <div>
-        <label for="neckLength">넥밴드 길이 (cm)</label>
-        <input id="neckLength" type="number"
-               min="0.1" step="0.1" value="3">
+        <label for="neckLength">
+          넥밴드 길이 (cm)
+        </label>
+        <input id="neckLength"
+               type="number"
+               min="0.1"
+               step="0.1"
+               value="3">
       </div>
 
       <div>
         <label for="neckStitches">
           넥밴드에서 픽업한 코수
         </label>
-        <input id="neckStitches" type="number"
-               min="1" step="1" value="8">
+        <input id="neckStitches"
+               type="number"
+               min="1"
+               step="1"
+               value="8">
       </div>
     </div>
   </div>
@@ -400,23 +494,31 @@ button:hover { background: #374151; }
         <label for="hemLength">
           밑단 밴드 길이 (cm)
         </label>
-        <input id="hemLength" type="number"
-               min="3" step="0.1" value="4">
+        <input id="hemLength"
+               type="number"
+               min="3"
+               step="0.1"
+               value="4">
       </div>
 
       <div>
         <label for="hemStitches">
           밑단 밴드에서 픽업한 코수
         </label>
-        <input id="hemStitches" type="number"
-               min="1" step="1" value="11">
+        <input id="hemStitches"
+               type="number"
+               min="1"
+               step="1"
+               value="11">
       </div>
     </div>
   </div>
 
   <div class="inputs" style="margin-top:14px">
     <div>
-      <label for="direction">코수 표시 방향</label>
+      <label for="direction">
+        코수 표시 방향
+      </label>
       <select id="direction">
         <option value="top">목 → 밑단</option>
         <option value="bottom">밑단 → 목</option>
@@ -425,7 +527,10 @@ button:hover { background: #374151; }
   </div>
 </section>
 
-<p id="error" class="error" role="alert" hidden></p>
+<p id="error"
+   class="error"
+   role="alert"
+   hidden></p>
 
 <section class="panel" id="result">
   <h3>③ 마커 배치 결과</h3>
@@ -443,6 +548,7 @@ button:hover { background: #374151; }
   </div>
 
   <p id="placementSummary" class="muted"></p>
+
   <div id="sequence" class="sequence"></div>
 
   <h3 style="margin-top:22px">
@@ -668,7 +774,8 @@ function drawDiagram(total, neck, hem, positions) {
 
   // 넥밴드
   add('rect', {
-    x: 82, y: y1,
+    x: 82,
+    y: y1,
     width: 76,
     height: y2 - y1,
     fill: '#dbeafe'
@@ -676,34 +783,41 @@ function drawDiagram(total, neck, hem, positions) {
 
   // 밑단 밴드
   add('rect', {
-    x: 82, y: y3,
+    x: 82,
+    y: y3,
     width: 76,
     height: y4 - y3,
     fill: '#e5e7eb'
   });
 
   add('line', {
-    x1: 82, y1: y2,
-    x2: 158, y2,
+    x1: 82,
+    y1: y2,
+    x2: 158,
+    y2: y2,
     stroke: '#93c5fd',
     'stroke-width': 1.5
   });
 
   add('line', {
-    x1: 82, y1: y3,
-    x2: 158, y2: y3,
+    x1: 82,
+    y1: y3,
+    x2: 158,
+    y2: y3,
     stroke: '#9ca3af',
     'stroke-width': 1.5
   });
 
   add('text', {
-    x: 184, y: 111,
+    x: 184,
+    y: 111,
     'font-size': 13,
     fill: '#1f2937'
   }, `넥밴드 ${neck}코`);
 
   add('text', {
-    x: 184, y: 406,
+    x: 184,
+    y: 406,
     'font-size': 13,
     fill: '#6b7280'
   }, `밑단 밴드 ${hem}코`);
@@ -951,7 +1065,7 @@ function calculate() {
 }
 
 
-// 입력값이 바뀌면 자동 재계산
+// 입력값 변경 시 자동 재계산
 document.querySelectorAll(
   'input, select'
 ).forEach(input => {
@@ -982,5 +1096,6 @@ $('copy').addEventListener('click', async () => {
 
 calculate();
 </script>
+
 </body>
 </html>
